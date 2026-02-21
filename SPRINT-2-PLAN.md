@@ -123,10 +123,12 @@ Usuario recibe URL + webhook config
 ## 📋 Roadmap Sprint 2
 
 ### Fase 1: Templates (1 día)
-- [ ] Diseño de 3 templates (Personal, Developer, Business)
-- [ ] Paso 0: Template selection con preview
-- [ ] Template → Pre-fill wizard con defaults
-- [ ] "Customize Template" → salta a paso específico
+- [x] Diseño base de 3 templates (Personal, Developer, Business)
+- [x] Paso 0: Template selection base
+- [x] Template → prefill wizard conectado (steps 2–5)
+- [x] Guardas para no pisar edición manual (`touched`)
+- [ ] Refinar presets/copy por vertical
+- [ ] "Customize Template" → salto directo a secciones específicas
 
 ### Fase 2: Validación (1 día)
 - [ ] API key validator (Anthropic ping)

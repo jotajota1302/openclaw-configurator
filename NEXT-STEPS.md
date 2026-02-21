@@ -1,14 +1,17 @@
 # OpenClaw Configurator - Next Steps 🚀
 
-## ✅ Sprint 1.6 completado — Provider UX Pack v1
+## ✅ Estado actual — Sprint 2 (bloque templates) en marcha
 
 **Lo que tenemos ahora:**
 - Wizard funcional de 7 pasos
 - Generación de `openclaw.yaml` + `.env` + `install.sh`
 - UI premium refactorizada (landing + wizard layout + animaciones)
 - Provider UX simplificado (links guiados + autodetección de credenciales + test de conexión)
-- Step 2 con links directos a docs de canales + indicadores de formato
+- Template selector activo (Personal / Developer / Business / Custom)
+- Prefill sólido en steps 2–5 con guardas para no pisar edición manual (`touched`)
 - Build validado en local (`npm run build` OK)
+
+**Último commit funcional:** `353f881 - feat: solid template prefill with touched-field guards`
 
 **Demo:** http://localhost:3000
 
@@ -182,17 +185,19 @@ bash install.sh
 
 ## Próximos pasos inmediatos (48-72h)
 
-1. **Template step (Paso 0) — ✅ base implementada**
+1. **Templates — ✅ base + guardas implementadas**
    - Selector: Personal / Developer / Business / Custom
-   - Pre-fill automático inicial de wizard (channels/security/skills/personality)
-   - Pendiente: refinar presets y textos por vertical
+   - Prefill en steps 2–5 conectado al template activo
+   - Guardas `touched` para no sobrescribir edición manual
+   - Pendiente: refinar copy y defaults por vertical
 
-2. **Validación en tiempo real (P1 mínimo)**
-   - Botón test API key (Anthropic/OpenAI)
-   - Botón test Telegram token (`getMe`)
+2. **Validación en tiempo real (siguiente bloque)**
+   - Test API key real (Anthropic/OpenAI/Google)
+   - Test Telegram token real (`getMe`)
+   - Mensajes de error accionables
 
 3. **Deploy path inicial**
-   - Botón "Deploy to Railway" (aunque sea enlace/template inicial)
+   - Botón "Deploy to Railway" (enlace/template funcional)
    - Documentar flujo exacto de variables requeridas
 
 4. **Hardening técnico**

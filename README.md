@@ -112,8 +112,10 @@ Automated installation script.
 - [x] Tailwind/theme refactor and animation system
 - [x] Build stability fixes (`tailwindcss-animate` dependency)
 
-### Sprint 2 (Next)
-- [ ] Template step (Personal / Developer / Business / Custom)
+### Sprint 2 (In progress)
+- [x] Template step base (Personal / Developer / Business / Custom)
+- [x] Template prefill sólido en steps 2–5
+- [x] Guardas `touched` para no pisar edición manual
 - [ ] Real network validation for API keys/tokens (optional proxy)
 - [ ] 1-click deploy to Railway
 - [ ] Custom skill upload
@@ -156,6 +158,6 @@ Part of the OpenClaw ecosystem. Built with ❤️ by the OpenClaw community.
 
 ---
 
-**Status:** Beta (Sprint 1 complete)  
-**Version:** 0.1.0  
+**Status:** Beta (Sprint 2 in progress)  
+**Version:** 0.2.0-beta  
 **Last Updated:** 2026-02-21
