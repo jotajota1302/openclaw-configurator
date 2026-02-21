@@ -94,7 +94,7 @@ Automated installation script.
 
 ## 🎯 Roadmap
 
-### Sprint 1 ✅ (Current)
+### Sprint 1 ✅ (Completed)
 - [x] Basic wizard flow
 - [x] Provider configuration
 - [x] Channel setup
@@ -102,6 +102,12 @@ Automated installation script.
 - [x] Skill selection
 - [x] Personality customization
 - [x] File generation (YAML + ENV + script)
+
+### Sprint 1.5 ✅ (Refactor UX)
+- [x] Landing page visual overhaul
+- [x] Wizard layout redesign (stepper + navigation polish)
+- [x] Tailwind/theme refactor and animation system
+- [x] Build stability fixes (`tailwindcss-animate` dependency)
 
 ### Sprint 2 (Next)
 - [ ] Advanced provider options (fallbacks, rate limits)

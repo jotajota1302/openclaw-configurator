@@ -1,13 +1,13 @@
 # OpenClaw Configurator - Next Steps 🚀
 
-## ✅ Sprint 1 Completado (HOY)
+## ✅ Sprint 1 + Refactor UX completado
 
-**Lo que tenemos:**
+**Lo que tenemos ahora:**
 - Wizard funcional de 7 pasos
 - Generación de `openclaw.yaml` + `.env` + `install.sh`
-- UI responsive con Tailwind
-- Repo en GitHub
-- README completo
+- UI premium refactorizada (landing + wizard layout + animaciones)
+- Repo en GitHub actualizado (`a22ae08`)
+- Build validado en local (`npm run build` OK)
 
 **Demo:** http://localhost:3000
 
@@ -176,3 +176,23 @@ bash install.sh
 ---
 
 **¿Qué opinas?** ¿Vamos con Templates + Railway + Validación o ajustamos prioridades?
+
+---
+
+## Próximos pasos inmediatos (48-72h)
+
+1. **Template step (Paso 0)**
+   - Selector: Personal / Developer / Business / Custom
+   - Pre-fill automático de wizard
+
+2. **Validación en tiempo real (P1 mínimo)**
+   - Botón test API key (Anthropic/OpenAI)
+   - Botón test Telegram token (`getMe`)
+
+3. **Deploy path inicial**
+   - Botón "Deploy to Railway" (aunque sea enlace/template inicial)
+   - Documentar flujo exacto de variables requeridas
+
+4. **Hardening técnico**
+   - Resolver vulnerabilidades npm críticas con `npm audit fix` (sin romper)
+   - Añadir CI mínima (`npm run build`) en GitHub Actions
