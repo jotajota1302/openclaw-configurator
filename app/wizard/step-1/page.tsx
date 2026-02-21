@@ -2,7 +2,7 @@
 
 import { WizardLayout } from "@/components/wizard-layout";
 import { useWizard } from "@/lib/wizard-context";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type ProviderId = "anthropic" | "openai" | "google" | "ollama";
 
@@ -83,9 +83,8 @@ function looksValid(provider: ProviderId, value: string, anthropicMode: "session
 }
 
 export default function Step1() {
-  const { config, updateConfig } = useWizard();
+  const { config, updateConfig, selectedTemplate, setSelectedTemplate, touched } = useWizard();
   const [selectedProvider, setSelectedProvider] = useState<ProviderId>("anthropic");
-  const [selectedTemplate, setSelectedTemplate] = useState<"personal" | "developer" | "business" | "custom">("custom");
   const [anthropicMode, setAnthropicMode] = useState<"sessionToken" | "apiKey">("sessionToken");
   const [credential, setCredential] = useState("");
   const [dontHaveCredentials, setDontHaveCredentials] = useState(false);
@@ -135,33 +134,34 @@ export default function Step1() {
   const applyTemplateDefaults = () => {
     if (selectedTemplate === "custom") return;
 
-    if (selectedTemplate === "personal") {
-      updateConfig({
-        channels: { telegram: { token: "", allowlist: [] } },
-        security: { dmPolicy: "allowlist", allowlist: [] },
-        skills: ["weather", "web_search"],
-        personality: { name: "JARVIS", emoji: "🤖", vibe: "Professional yet approachable" },
-      });
+    const patch: Record<string, any> = {};
+
+    if (!touched.channels) {
+      if (selectedTemplate === "personal") patch.channels = { telegram: { token: "", allowlist: [] } };
+      if (selectedTemplate === "developer") patch.channels = { telegram: { token: "", allowlist: [] }, discord: { token: "", allowlist: [] } };
+      if (selectedTemplate === "business") patch.channels = { whatsapp: { enabled: true }, telegram: { token: "", allowlist: [] } };
     }
 
-    if (selectedTemplate === "developer") {
-      updateConfig({
-        channels: { telegram: { token: "", allowlist: [] }, discord: { token: "", allowlist: [] } },
-        security: { dmPolicy: "allowlist", allowlist: [] },
-        skills: ["github", "coding-agent", "himalaya"],
-        personality: { name: "JARVIS Dev", emoji: "🛠️", vibe: "Technical and direct" },
-      });
+    if (!touched.security) patch.security = { dmPolicy: "allowlist", allowlist: [] };
+
+    if (!touched.skills) {
+      if (selectedTemplate === "personal") patch.skills = ["weather", "web_search"];
+      if (selectedTemplate === "developer") patch.skills = ["github", "coding-agent", "himalaya"];
+      if (selectedTemplate === "business") patch.skills = ["himalaya", "web_search"];
     }
 
-    if (selectedTemplate === "business") {
-      updateConfig({
-        channels: { whatsapp: { enabled: true }, telegram: { token: "", allowlist: [] } },
-        security: { dmPolicy: "allowlist", allowlist: [] },
-        skills: ["himalaya", "web_search"],
-        personality: { name: "JARVIS Biz", emoji: "📈", vibe: "Professional and concise" },
-      });
+    if (!touched.personality) {
+      if (selectedTemplate === "personal") patch.personality = { name: "JARVIS", emoji: "🤖", vibe: "Professional yet approachable" };
+      if (selectedTemplate === "developer") patch.personality = { name: "JARVIS Dev", emoji: "🛠️", vibe: "Technical and direct" };
+      if (selectedTemplate === "business") patch.personality = { name: "JARVIS Biz", emoji: "📈", vibe: "Professional and concise" };
     }
+
+    if (Object.keys(patch).length) updateConfig(patch);
   };
+
+  useEffect(() => {
+    applyTemplateDefaults();
+  }, [selectedTemplate]);
 
   const handleNext = () => {
     applyTemplateDefaults();
@@ -223,7 +223,9 @@ export default function Step1() {
               <button
                 key={t.id}
                 type="button"
-                onClick={() => setSelectedTemplate(t.id as "personal" | "developer" | "business" | "custom")}
+                onClick={() => {
+                  setSelectedTemplate(t.id as "personal" | "developer" | "business" | "custom");
+                }}
                 className={`px-3 py-2 rounded-lg border text-sm ${
                   selectedTemplate === t.id ? "border-cyan-500 text-cyan-300 bg-cyan-500/10" : "border-slate-600 text-slate-300"
                 }`}
