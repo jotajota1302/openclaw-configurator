@@ -182,9 +182,10 @@ bash install.sh
 
 ## Próximos pasos inmediatos (48-72h)
 
-1. **Template step (Paso 0)**
+1. **Template step (Paso 0) — ✅ base implementada**
    - Selector: Personal / Developer / Business / Custom
-   - Pre-fill automático de wizard
+   - Pre-fill automático inicial de wizard (channels/security/skills/personality)
+   - Pendiente: refinar presets y textos por vertical
 
 2. **Validación en tiempo real (P1 mínimo)**
    - Botón test API key (Anthropic/OpenAI)

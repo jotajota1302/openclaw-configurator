@@ -85,6 +85,7 @@ function looksValid(provider: ProviderId, value: string, anthropicMode: "session
 export default function Step1() {
   const { config, updateConfig } = useWizard();
   const [selectedProvider, setSelectedProvider] = useState<ProviderId>("anthropic");
+  const [selectedTemplate, setSelectedTemplate] = useState<"personal" | "developer" | "business" | "custom">("custom");
   const [anthropicMode, setAnthropicMode] = useState<"sessionToken" | "apiKey">("sessionToken");
   const [credential, setCredential] = useState("");
   const [dontHaveCredentials, setDontHaveCredentials] = useState(false);
@@ -131,7 +132,39 @@ export default function Step1() {
     setTestMessage("");
   };
 
+  const applyTemplateDefaults = () => {
+    if (selectedTemplate === "custom") return;
+
+    if (selectedTemplate === "personal") {
+      updateConfig({
+        channels: { telegram: { token: "", allowlist: [] } },
+        security: { dmPolicy: "allowlist", allowlist: [] },
+        skills: ["weather", "web_search"],
+        personality: { name: "JARVIS", emoji: "🤖", vibe: "Professional yet approachable" },
+      });
+    }
+
+    if (selectedTemplate === "developer") {
+      updateConfig({
+        channels: { telegram: { token: "", allowlist: [] }, discord: { token: "", allowlist: [] } },
+        security: { dmPolicy: "allowlist", allowlist: [] },
+        skills: ["github", "coding-agent", "himalaya"],
+        personality: { name: "JARVIS Dev", emoji: "🛠️", vibe: "Technical and direct" },
+      });
+    }
+
+    if (selectedTemplate === "business") {
+      updateConfig({
+        channels: { whatsapp: { enabled: true }, telegram: { token: "", allowlist: [] } },
+        security: { dmPolicy: "allowlist", allowlist: [] },
+        skills: ["himalaya", "web_search"],
+        personality: { name: "JARVIS Biz", emoji: "📈", vibe: "Professional and concise" },
+      });
+    }
+  };
+
   const handleNext = () => {
+    applyTemplateDefaults();
     const providers = { ...config.providers };
 
     if (selectedProvider === "ollama") {
@@ -178,6 +211,34 @@ export default function Step1() {
       onNext={handleNext}
     >
       <div className="space-y-6">
+        <div className="space-y-3">
+          <p className="text-sm text-slate-300">Template rápido (opcional)</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {[
+              { id: "personal", label: "Personal" },
+              { id: "developer", label: "Developer" },
+              { id: "business", label: "Business" },
+              { id: "custom", label: "Custom" },
+            ].map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => setSelectedTemplate(t.id as "personal" | "developer" | "business" | "custom")}
+                className={`px-3 py-2 rounded-lg border text-sm ${
+                  selectedTemplate === t.id ? "border-cyan-500 text-cyan-300 bg-cyan-500/10" : "border-slate-600 text-slate-300"
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+          {selectedTemplate !== "custom" && (
+            <p className="text-xs text-emerald-300">
+              Template {selectedTemplate} aplicado al resto del wizard (channels/security/skills/personality).
+            </p>
+          )}
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {PROVIDERS.map((provider) => (
             <button
