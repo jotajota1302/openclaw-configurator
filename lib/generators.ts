@@ -140,26 +140,49 @@ export function generateEnvFile(config: WizardConfig): string {
 
 export function generateInstallScript(): string {
   return `#!/bin/bash
-# OpenClaw Installation Script
+# OpenClaw Installation Script v2
 # Generated: ${new Date().toISOString()}
 
 set -e
 
-echo "🚀 Installing OpenClaw..."
+OS="$(uname -s)"
+echo "🖥️  Detected OS: $OS"
 
-# Install OpenClaw
+if ! command -v npm >/dev/null 2>&1; then
+  echo "❌ npm not found. Install Node.js first: https://nodejs.org"
+  exit 1
+fi
+
+echo "🚀 Installing OpenClaw..."
 npm install -g openclaw
 
-# Copy config files
+mkdir -p ~/.openclaw
+
 echo "📝 Copying config files..."
 cp openclaw.yaml ~/.openclaw/openclaw.yaml
 cp .env ~/.openclaw/.env
 
+# Basic interactive prompts for missing env values
+if grep -q "your-session-token-here\|sk-...\|AIza...\|123456:ABC-DEF" ~/.openclaw/.env 2>/dev/null; then
+  echo "\n⚠️  Se detectaron placeholders en ~/.openclaw/.env"
+  read -p "¿Quieres editar .env ahora? (y/N): " EDIT_ENV
+  if [[ "$EDIT_ENV" =~ ^[Yy]$ ]]; then
+    \${EDITOR:-nano} ~/.openclaw/.env
+  fi
+fi
+
+echo "🔌 Starting gateway..."
+openclaw gateway start || true
+
+DASH_URL="http://localhost:18789"
+echo "🌐 Opening dashboard: $DASH_URL"
+if [[ "$OS" == "Darwin" ]]; then
+  open "$DASH_URL" || true
+elif command -v xdg-open >/dev/null 2>&1; then
+  xdg-open "$DASH_URL" || true
+fi
+
 echo "✅ Installation complete!"
-echo ""
-echo "Next steps:"
-echo "1. Edit ~/.openclaw/.env with your actual API keys"
-echo "2. Run 'openclaw gateway start' to start the service"
-echo "3. Visit http://localhost:18789 for the control panel"
+echo "Dashboard: $DASH_URL"
 `;
 }

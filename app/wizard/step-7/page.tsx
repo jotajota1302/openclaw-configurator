@@ -78,6 +78,18 @@ export default function Step7() {
             </div>
           </div>
 
+          <div className="p-4 bg-violet-500/10 border border-violet-500/30 rounded-lg mb-6">
+            <div className="font-semibold mb-2">🚀 Deploy (opcional, informativo)</div>
+            <p className="text-sm text-slate-300 mb-2">
+              No se ejecuta ningún deploy automático desde aquí. Solo enlaces y plantilla para publicar cuando quieras.
+            </p>
+            <div className="text-sm space-x-3">
+              <a href="https://railway.app/new" target="_blank" rel="noreferrer" className="text-violet-300 underline">Railway</a>
+              <a href="https://vercel.com/new" target="_blank" rel="noreferrer" className="text-violet-300 underline">Vercel</a>
+              <a href="https://dashboard.render.com" target="_blank" rel="noreferrer" className="text-violet-300 underline">Render</a>
+            </div>
+          </div>
+
           {/* Next Steps */}
           <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
             <div className="font-semibold mb-2">📋 Next Steps:</div>

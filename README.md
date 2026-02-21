@@ -112,14 +112,14 @@ Automated installation script.
 - [x] Tailwind/theme refactor and animation system
 - [x] Build stability fixes (`tailwindcss-animate` dependency)
 
-### Sprint 2 (In progress)
+### Sprint 2 ✅ (Completed - local scope)
 - [x] Template step base (Personal / Developer / Business / Custom)
 - [x] Template prefill sólido en steps 2–5
 - [x] Guardas `touched` para no pisar edición manual
-- [ ] Real network validation for API keys/tokens (optional proxy)
-- [ ] 1-click deploy to Railway
-- [ ] Custom skill upload
-- [ ] Advanced provider options (fallbacks, rate limits)
+- [x] Validación real best-effort en Step 1 (Anthropic/OpenAI/Google) + fallback heurístico
+- [x] Validación real Telegram `getMe` en Step 2
+- [x] Step 7 con CTA informativo de deploy (sin ejecutar despliegue)
+- [x] `install.sh` v2 (detección OS, prompts básicos, start gateway, abrir dashboard)
 
 ### Sprint 3
 - [ ] 1-click deploy to Railway/Render
@@ -158,6 +158,6 @@ Part of the OpenClaw ecosystem. Built with ❤️ by the OpenClaw community.
 
 ---
 
-**Status:** Beta (Sprint 2 in progress)  
-**Version:** 0.2.0-beta  
+**Status:** Beta (Sprint 2 completed - local scope)  
+**Version:** 0.3.0-beta  
 **Last Updated:** 2026-02-21

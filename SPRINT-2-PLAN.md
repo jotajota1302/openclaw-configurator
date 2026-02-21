@@ -131,22 +131,22 @@ Usuario recibe URL + webhook config
 - [ ] "Customize Template" → salto directo a secciones específicas
 
 ### Fase 2: Validación (1 día)
-- [ ] API key validator (Anthropic ping)
-- [ ] Bot token validator (Telegram getMe)
+- [x] API key validator best-effort en Step 1 (con fallback heurístico)
+- [x] Bot token validator (Telegram getMe)
 - [ ] Config preview antes de download
 - [ ] "Test Configuration" button
 
 ### Fase 3: Deploy Automation (2 días)
 - [ ] Railway template (`railway.toml`)
-- [ ] "Deploy to Railway" button en Step 7
+- [x] CTA informativo "Deploy to Railway" en Step 7 (sin ejecutar deploy)
 - [ ] Railway environment variables auto-config
 - [ ] Post-deploy webhook setup
 
 ### Fase 4: Install Script v2 (1 día)
-- [ ] OS detection
-- [ ] Interactive .env prompts
-- [ ] Auto-start gateway
-- [ ] Open browser to control panel
+- [x] OS detection
+- [x] Interactive .env prompts (básicos)
+- [x] Auto-start gateway
+- [x] Open browser to control panel
 
 ### Fase 5: Onboarding (1 día)
 - [ ] Post-install checklist UI

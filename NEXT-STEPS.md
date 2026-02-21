@@ -1,6 +1,6 @@
 # OpenClaw Configurator - Next Steps 🚀
 
-## ✅ Estado actual — Sprint 2 (bloque templates) en marcha
+## ✅ Estado actual — Sprint 2 completado (scope local, sin deploy ejecutado)
 
 **Lo que tenemos ahora:**
 - Wizard funcional de 7 pasos
@@ -9,9 +9,13 @@
 - Provider UX simplificado (links guiados + autodetección de credenciales + test de conexión)
 - Template selector activo (Personal / Developer / Business / Custom)
 - Prefill sólido en steps 2–5 con guardas para no pisar edición manual (`touched`)
+- Validación real best-effort de providers + fallback heurístico (Step 1)
+- Test real Telegram token (`getMe`) en Step 2
+- `install.sh` v2 generado (OS detect + prompts + start gateway + abrir dashboard)
+- Step 7 con CTA informativo de deploy (Railway/Vercel/Render) sin ejecutar despliegue
 - Build validado en local (`npm run build` OK)
 
-**Último commit funcional:** `353f881 - feat: solid template prefill with touched-field guards`
+**Último commit funcional:** `353f881 - feat: solid template prefill with touched-field guards` (pendiente nuevo commit de cierre Sprint 2)
 
 **Demo:** http://localhost:3000
 

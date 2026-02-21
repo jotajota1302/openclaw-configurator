@@ -31,6 +31,8 @@ export default function Step2() {
   const [discordToken, setDiscordToken] = useState(config.channels.discord?.token || "");
   const [enableWhatsApp, setEnableWhatsApp] = useState(!!config.channels.whatsapp?.enabled);
   const [enableSignal, setEnableSignal] = useState(!!config.channels.signal?.enabled);
+  const [telegramTestStatus, setTelegramTestStatus] = useState<"idle" | "testing" | "ok" | "error">("idle");
+  const [telegramTestMessage, setTelegramTestMessage] = useState("");
 
   useEffect(() => {
     if (touched.channels) return;
@@ -43,6 +45,31 @@ export default function Step2() {
 
   const telegramValid = useMemo(() => (telegramToken ? isTelegramToken(telegramToken) : null), [telegramToken]);
   const discordValid = useMemo(() => (discordToken ? isDiscordToken(discordToken) : null), [discordToken]);
+
+  const handleTelegramTest = async () => {
+    if (!telegramToken.trim() || !telegramValid) {
+      setTelegramTestStatus("error");
+      setTelegramTestMessage("Token inválido. Revisa formato antes de probar.");
+      return;
+    }
+
+    setTelegramTestStatus("testing");
+    setTelegramTestMessage("");
+    try {
+      const r = await fetch(`https://api.telegram.org/bot${telegramToken.trim()}/getMe`);
+      const j = await r.json();
+      if (r.ok && j?.ok) {
+        setTelegramTestStatus("ok");
+        setTelegramTestMessage(`Token válido (${j?.result?.username || "bot"}).`);
+      } else {
+        setTelegramTestStatus("error");
+        setTelegramTestMessage(j?.description || "Token inválido o bloqueado.");
+      }
+    } catch {
+      setTelegramTestStatus("error");
+      setTelegramTestMessage("No se pudo validar por red en este navegador.");
+    }
+  };
 
   const handleNext = () => {
     const channels: {
@@ -72,6 +99,18 @@ export default function Step2() {
           <input type="password" value={telegramToken} onChange={(e) => { setTelegramToken(e.target.value); markTouched("channels"); }} placeholder="123456789:AA..." className="w-full px-4 py-2 bg-slate-700 rounded-lg border border-slate-600 focus:border-blue-500 focus:outline-none" />
           {telegramValid === true && <p className="text-xs text-emerald-400 mt-1">✅ Formato válido</p>}
           {telegramValid === false && <p className="text-xs text-rose-400 mt-1">❌ Formato no válido</p>}
+          <div className="mt-2 flex items-center gap-3">
+            <button
+              type="button"
+              onClick={handleTelegramTest}
+              disabled={telegramTestStatus === "testing"}
+              className="px-3 py-1 rounded border border-slate-500 hover:border-cyan-500 text-xs"
+            >
+              {telegramTestStatus === "testing" ? "Probando..." : "Test Telegram token"}
+            </button>
+            {telegramTestStatus === "ok" && <span className="text-xs text-emerald-400">✅ {telegramTestMessage}</span>}
+            {telegramTestStatus === "error" && <span className="text-xs text-rose-400">❌ {telegramTestMessage}</span>}
+          </div>
         </div>
 
         <div className="p-4 bg-slate-700/50 rounded-lg border border-slate-600">
