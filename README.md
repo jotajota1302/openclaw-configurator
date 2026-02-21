@@ -16,10 +16,13 @@ Setting up OpenClaw manually takes 1-3 hours and requires reading extensive docu
 ## ✨ Features
 
 - **7-Step Wizard:** Providers → Channels → Security → Skills → Personality → Review → Download
+- **Provider UX Pack v1:** guided links, credential auto-detection, mismatch warnings, one-click provider switch
+- **No credentials mode:** recommend/start with local Ollama for fastest onboarding
+- **Test Connection (Step 1):** Ollama local connectivity + heuristic credential validation for hosted APIs
 - **Live Preview:** See your configuration before downloading
 - **Secure by Default:** Privacy-first with allowlist recommendations
 - **Multiple Providers:** Anthropic, OpenAI, Google, Ollama support
-- **Channel Support:** Telegram, WhatsApp, Discord, Signal
+- **Channel Support:** Telegram, WhatsApp, Discord, Signal (+ docs links + token format helpers)
 - **Skill Selection:** Pre-configured popular skills (GitHub, Email, Weather, etc.)
 
 ## 🚀 Quick Start
@@ -110,10 +113,11 @@ Automated installation script.
 - [x] Build stability fixes (`tailwindcss-animate` dependency)
 
 ### Sprint 2 (Next)
-- [ ] Advanced provider options (fallbacks, rate limits)
+- [ ] Template step (Personal / Developer / Business / Custom)
+- [ ] Real network validation for API keys/tokens (optional proxy)
+- [ ] 1-click deploy to Railway
 - [ ] Custom skill upload
-- [ ] Template library (pre-configured setups)
-- [ ] Config validation
+- [ ] Advanced provider options (fallbacks, rate limits)
 
 ### Sprint 3
 - [ ] 1-click deploy to Railway/Render

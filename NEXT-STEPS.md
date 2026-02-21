@@ -1,12 +1,13 @@
 # OpenClaw Configurator - Next Steps 🚀
 
-## ✅ Sprint 1 + Refactor UX completado
+## ✅ Sprint 1.6 completado — Provider UX Pack v1
 
 **Lo que tenemos ahora:**
 - Wizard funcional de 7 pasos
 - Generación de `openclaw.yaml` + `.env` + `install.sh`
 - UI premium refactorizada (landing + wizard layout + animaciones)
-- Repo en GitHub actualizado (`a22ae08`)
+- Provider UX simplificado (links guiados + autodetección de credenciales + test de conexión)
+- Step 2 con links directos a docs de canales + indicadores de formato
 - Build validado en local (`npm run build` OK)
 
 **Demo:** http://localhost:3000
